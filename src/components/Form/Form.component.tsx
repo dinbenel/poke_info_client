@@ -1,5 +1,5 @@
 import { JSX } from 'solid-js';
-import FormContextProvider from './context/Form.context';
+import { formContextProvider } from './context/Form.context';
 
 type Props = {
   children: JSX.Element;
@@ -8,7 +8,11 @@ type Props = {
 const AppForm = ({ children }: Props) => {
   console.log('first');
   console.log(children);
-  return <FormContextProvider>{children}</FormContextProvider>;
+  const { provider, useFormContext } = formContextProvider<{ name: string }>({
+    children,
+    defaultValues: { name: 'fff' },
+  });
+  return provider;
 };
 
 export default AppForm;

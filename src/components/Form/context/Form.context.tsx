@@ -1,15 +1,29 @@
-import { JSX, createContext } from 'solid-js';
-import { createStore } from 'solid-js/store';
+import { JSX, createContext, useContext } from 'solid-js';
 
-const FormContext = createContext();
-
-type Props = {
+type Props<T> = {
   children: JSX.Element;
+  defaultValues: T;
 };
 
-const FormContextProvider = ({ children }: Props) => {
-  const [] = createStore();
-  return <FormContext.Provider value={{}}>{children}</FormContext.Provider>;
+type TFormContextProvider = <T>({}: Props<T>) => {
+  provider: JSX.Element;
+  useFormContext: any;
 };
 
-export default FormContextProvider;
+export const formContextProvider: TFormContextProvider = ({
+  children,
+  defaultValues,
+}) => {
+  const FormContext = createContext(defaultValues);
+  const useFormContext = () => useContext(FormContext);
+
+  const provider = (
+    <FormContext.Provider value={defaultValues}>
+      {children}
+    </FormContext.Provider>
+  );
+  return {
+    useFormContext,
+    provider,
+  };
+};
