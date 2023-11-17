@@ -1,4 +1,4 @@
-import { JSX } from 'solid-js';
+import { JSX, children } from 'solid-js';
 import { AppForm, Input } from '..';
 import { useForm } from '@/hooks/useForm';
 import { LoginFormData } from '@/types/logister.type';
@@ -7,8 +7,10 @@ type Props = {
   children?: JSX.Element;
 };
 
-const Logister = ({ children }: Props) => {
-  const { formData, onchange, register, onSubmit } = useForm<LoginFormData>({
+const Logister = (props: Props) => {
+  const childrenSignals = children(() => props.children);
+
+  const { onchange, register, onSubmit } = useForm<LoginFormData>({
     email: '',
     password: '',
   });
@@ -19,12 +21,12 @@ const Logister = ({ children }: Props) => {
 
   return (
     <AppForm>
-      <form class='' onSubmit={(e) => onSubmit(e, submitHandler)}>
-        <Input onInput={onchange} {...register('password')} />
-        <Input onInput={onchange} {...register('email')} />
-        {children}
-        <button>submit</button>
-      </form>
+      <Input onInput={onchange} {...register('password')} />
+      <Input onInput={onchange} {...register('email')} />
+      {childrenSignals()}
+      <button type='submit' onClick={onSubmit(submitHandler)}>
+        submit
+      </button>
     </AppForm>
   );
 };

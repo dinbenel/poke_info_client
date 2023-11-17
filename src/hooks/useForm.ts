@@ -5,10 +5,8 @@ type ChangeEvent = InputEvent & {
   target: HTMLInputElement;
 };
 
-type SubmitEvent = Event & {
-  submitter: HTMLElement;
-} & {
-  currentTarget: HTMLFormElement;
+type SubmitEvent = MouseEvent & {
+  currentTarget: HTMLButtonElement;
   target: Element;
 };
 
@@ -33,9 +31,11 @@ export const useForm = <T extends object>(values: T) => {
     setFormData({ ...vals });
   };
 
-  const onSubmit = (e: SubmitEvent, cb: (data: typeof formData) => void) => {
-    e.preventDefault();
-    cb(formData);
+  const onSubmit = (cb: (data: typeof formData) => void) => {
+    return (e: SubmitEvent) => {
+      e.preventDefault();
+      cb(formData);
+    };
   };
 
   return {

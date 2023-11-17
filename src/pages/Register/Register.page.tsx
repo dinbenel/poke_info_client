@@ -1,5 +1,11 @@
+import { Input, Logister } from '@/components';
+
 const Register = () => {
-  return <div>Register</div>;
+  return (
+    <Logister>
+      <Input />
+    </Logister>
+  );
 };
 
 export default Register;
