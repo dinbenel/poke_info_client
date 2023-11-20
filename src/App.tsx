@@ -1,8 +1,8 @@
-import { Routes, Route } from "@solidjs/router";
-import { routes } from "./Routes";
-import { For } from "solid-js";
-import { Header } from "./components";
-import PokemonProvider from "./providers/pokemon.provider";
+import { Routes, Route } from '@solidjs/router';
+import { routes } from './Routes';
+import { For } from 'solid-js';
+import { Header } from './components';
+import PokemonProvider from './providers/Pokemon.provider';
 
 function App() {
   return (

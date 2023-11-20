@@ -1,6 +1,6 @@
 import { NotFound } from '../components';
 import { routeNames } from '../constants/routeNames';
-import { Home, Login, Register } from '../pages';
+import { Home, Login, Pokemon, Register } from '../pages';
 
 export const routes = [
   {
@@ -14,6 +14,10 @@ export const routes = [
   {
     path: routeNames.register,
     component: Register,
+  },
+  {
+    path: routeNames.pokemon,
+    component: Pokemon,
   },
   {
     path: routeNames.notFound,

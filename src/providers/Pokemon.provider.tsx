@@ -1,9 +1,14 @@
-import { IPokemon } from "@/types/pokemon.type";
-import { JSX, children, createContext, useContext } from "solid-js";
-import { createStore } from "solid-js/store";
+import { IPokemon } from '@/types/pokemon.type';
+import { JSX, children, createContext, useContext } from 'solid-js';
+import { createStore } from 'solid-js/store';
 
 interface PokemonStore {
   pokemon: IPokemon[];
+}
+
+interface PokemonContext {
+  setPokemon: (pokemon: IPokemon[], name: keyof PokemonStore) => void;
+  store: PokemonStore;
 }
 
 type Props = {
@@ -14,19 +19,19 @@ const [store, setStore] = createStore<PokemonStore>({
   pokemon: [],
 });
 
-const PokeContext = createContext();
+const PokeContext = createContext<PokemonContext>();
 
 const PokemonProvider = (props: Props) => {
   const childrenSignal = children(() => props.children);
 
-  const setState = (pokemon: IPokemon[]) => {
-    setStore("pokemon", pokemon);
+  const setPokemon = (pokemon: IPokemon[], name: keyof PokemonStore) => {
+    setStore(name, pokemon);
   };
 
   return (
     <PokeContext.Provider
       value={{
-        setState,
+        setPokemon,
         store,
       }}
     >

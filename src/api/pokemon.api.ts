@@ -1,13 +1,13 @@
-import { HttpClient, httpClient } from "@/lib/http.client";
-import { IPokemon } from "@/types/pokemon.type";
+import { httpClient } from '@/lib/http.client';
+import { IPokemon } from '@/types/pokemon.type';
 
 class PokemonApi {
-  constructor(private readonly api: HttpClient) {}
-
   async getAllPokemon() {
     try {
-      const pokemon = await this.api.httpClient.get<IPokemon[]>("");
-      return pokemon;
+      const { data } = await httpClient.httpClient.get<IPokemon[]>(
+        'api/pokemon'
+      );
+      return data;
     } catch (err) {
       console.log(err);
     }
@@ -28,4 +28,4 @@ class PokemonApi {
   }
 }
 
-export const pokeApi = new PokemonApi(httpClient);
+export const pokeApi = new PokemonApi();
